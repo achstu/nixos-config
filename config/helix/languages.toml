@@ -1,0 +1,14 @@
+
+[[language]]
+name = "rust"
+# auto-format = false
+
+[language-server.rust-analyzer.config]
+cachePriming.enable = true
+diagnostics.experimental.enable = true
+
+[[language]]
+name = "python"
+auto-format = true
+# language-servers = [] c
+

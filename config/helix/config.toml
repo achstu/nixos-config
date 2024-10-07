@@ -1,0 +1,22 @@
+theme = "ayu_evolve"
+
+[editor]
+line-number = "relative"
+# clipboard.copy = "wl-copy"
+# clipboard.paste = "wl-paste"
+
+# bufferline = "multiple"
+# mouse = true
+
+# auto-save.after-delay.timeout = 500
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+
+
