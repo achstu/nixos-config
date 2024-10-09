@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/bash.nix
+    ./modules/sound.nix
   ];
 
   boot.loader = {  
@@ -23,19 +24,6 @@
   time.timeZone = "Europe/Warsaw";
 
   # nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Enable sound.
-  sound.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-
-    alsa.enable = true;
-    alsa.support32Bit = true;
-
-    pulse.enable = true;
-  };
-  
   # for obsidian
   nixpkgs.config.allowUnfree = true;
 
