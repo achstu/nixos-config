@@ -12,3 +12,6 @@ name = "python"
 auto-format = true
 # language-servers = [] c
 
+[[language]]
+name = "cpp"
+auto-format = true

@@ -8,7 +8,6 @@ line-number = "relative"
 # bufferline = "multiple"
 # mouse = true
 
-# auto-save.after-delay.timeout = 500
 
 [editor.cursor-shape]
 insert = "bar"

@@ -37,7 +37,7 @@
     # essential dev tools
     zip unzip p7zip
     helix
-    git tree
+    git tree rlwrap
 
     xdg-utils # needed by vscode
     ollama
@@ -52,15 +52,25 @@
     rust-analyzer
     cargo-modules
 
+    # java tools
+    jdt-language-server zulu
+
     # python dev
     python3
     virtualenv
 
+    # ocaml dev
+    opam
+    ocamlPackages.lsp
+    ocamlPackages.fmt
+    
+        
     # nix dev
     nil
 
     # json support
     jq
+    vscode-langservers-extracted # html/css/json lsp
     
     # audio
     pavucontrol
@@ -68,16 +78,34 @@
     # desktop apps
     firefox
     kitty
-    hyprpaper
     obsidian
     inkscape
     xfce.thunar
     vscode
 
+    # desktop
+    waybar
+    hyprlock
+    hypridle
+    hyprpaper
+
     # cli tools
     yt-dlp-light
     ffmpeg
     transmission_4
+  ];
+
+  fonts.packages = with pkgs; [
+    dejavu_fonts
+    
+    fira-code
+    fira-code-symbols
+    fira-code-nerdfont
+    fira
+    fira-sans
+    fira-math
+    
+    hack-font
   ];
 
   programs.hyprland.enable = true;
