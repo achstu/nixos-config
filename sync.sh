@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Sync /etc/nixos with your git repo
-rsync -av --delete /etc/nixos/ ./nixos/
+# TODO check if local branch is behind
 
-# Sync ~/.config with your git repo
+rsync -av --delete /etc/nixos/ ./nixos/
 
 rsync -av --delete ~/.config/{helix,kitty,hypr} ./config/
 
-# Add changes and commit
 git add .
 git commit -m "Sync latest config"
 git push
