@@ -7,7 +7,11 @@ line-number = "relative"
 
 # bufferline = "multiple"
 # mouse = true
+# auto-info = false
 
+[editor.lsp]
+# display-messages = true
+# display-inlay-hints = true
 
 [editor.cursor-shape]
 insert = "bar"

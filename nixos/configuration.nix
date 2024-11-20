@@ -8,9 +8,11 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/bash.nix
+    ./modules/printing.nix
     ./modules/sound.nix
   ];
-
+  
+  boot.kernelModules = [ "video" "acpi_video" ];
   boot.loader = {  
     efi.canTouchEfiVariables = true;
     systemd-boot.enable = true;
@@ -26,25 +28,29 @@
   # nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # for obsidian
   nixpkgs.config.allowUnfree = true;
-
-   users.users.achstu = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "audio" ];
-   };
+  
+  users.users.achstu = {
+    # shell = pkgs.bash;
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "audio" ];
+  };
 
   environment.systemPackages = with pkgs; [
     (import ./scripts/mvd.nix { inherit pkgs; })
     # essential dev tools
     zip unzip p7zip
-    helix
+    helix wget
     git tree rlwrap
 
     xdg-utils # needed by vscode
-    ollama
+    ollama jetbrains-toolbox
    
     # cpp dev
-    clang clang-tools
-    gcc gnumake gdb libcxx
+    clang clang-tools cmake
+    gcc gnumake gdb libcxx nasm
+
+    # beacause why not    
+    jetbrains-toolbox
 
     # rust dev
     cargo rustc
@@ -52,19 +58,28 @@
     rust-analyzer
     cargo-modules
 
-    # java tools
-    jdt-language-server zulu
 
     # python dev
     python3
-    virtualenv
+    # uv
+    # poetry
+    # jupyter-all
+    # python312Packages.jupyterlab
+    # virtualenv
+    # python312Packages.python-lsp-server
+    # pypy3
+    # pypy310
 
     # ocaml dev
+    ocaml
+    ocamlPackages.ocamlformat
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.utop
+    dune_3
     opam
-    ocamlPackages.lsp
-    ocamlPackages.fmt
-    
-        
+
+    # other dev
+    sqlite    
     # nix dev
     nil
 
@@ -78,16 +93,24 @@
     # desktop apps
     firefox
     kitty
+
+    # handwriten and digital notes
     obsidian
     inkscape
+    # xournalpp
+    
     xfce.thunar
-    vscode
+    vscode-fhs
 
     # desktop
     waybar
     hyprlock
     hypridle
     hyprpaper
+    # for other suckmore tools
+    xwayland wlroots xdg-desktop-portal-wlr
+    
+    light
 
     # cli tools
     yt-dlp-light
@@ -108,23 +131,11 @@
     hack-font
   ];
 
+  # to run code under Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
   programs.hyprland.enable = true;
   programs.firefox.enable = true;
-
-
-  # Multiple bugs leading to info leak and remote code execution. More info:
-  # https://github.com/OpenPrinting/cups-browsed/security/advisories/GHSA-rj88-6mr5-rcw8
-  services.printing.enable = false;
-  # Printing
-  # services.printing.enable = true;
-  # services.avahi = {
-    # enable = true;
-    # nssmdns4 = true;
-    # openFirewall = true;
-  # };
-
-  
-  # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   system.stateVersion = "24.05";

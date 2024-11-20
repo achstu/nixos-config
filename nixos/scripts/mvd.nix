@@ -16,7 +16,7 @@ pkgs.writeShellScriptBin "mvd" ''
 
   # Check if there's a file in the downloads folder
   if [ -z "$SRC" ]; then
-    echo "No files found in $DOWNLOADS."
+    echo "No files found in $DOWNLOADS"
     exit 1
   fi
 
@@ -25,9 +25,9 @@ pkgs.writeShellScriptBin "mvd" ''
 
   # Confirm that the file was moved
   if [ $? -eq 0 ]; then
-    echo "Moved $SRC to $DEST."
+    echo "Moved $SRC to $DEST"
   else
-    echo "Failed to move $SRC."
+    echo "Failed to move $SRC"
     exit 1
   fi
 
