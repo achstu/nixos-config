@@ -17,6 +17,10 @@ name = "cpp"
 auto-format = true
 
 [[language]]
+name = "c"
+auto-format = true
+
+[[language]]
 name = "ocaml"
 formatter = { command = "ocamlformat", args = ["-", "--impl", "--enable-outside-detected-project"] }
 auto-format = true

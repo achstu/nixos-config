@@ -12,7 +12,7 @@
     ./modules/sound.nix
   ];
   
-  boot.kernelModules = [ "video" "acpi_video" ];
+  boot.kernelModules = [ "video" "acpi_video" "bluetooth" ];
   boot.loader = {  
     efi.canTouchEfiVariables = true;
     systemd-boot.enable = true;
@@ -25,12 +25,10 @@
 
   time.timeZone = "Europe/Warsaw";
 
-  # nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # for obsidian
   nixpkgs.config.allowUnfree = true;
   
   users.users.achstu = {
-    # shell = pkgs.bash;
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" ];
   };
@@ -41,16 +39,17 @@
     zip unzip p7zip
     helix wget
     git tree rlwrap
+    parallel-full
+    # busybox
+    killall
 
     xdg-utils # needed by vscode
-    ollama jetbrains-toolbox
+    # ollama jetbrains-toolbox
+    ollama
    
     # cpp dev
     clang clang-tools cmake
     gcc gnumake gdb libcxx nasm
-
-    # beacause why not    
-    jetbrains-toolbox
 
     # rust dev
     cargo rustc
@@ -58,17 +57,12 @@
     rust-analyzer
     cargo-modules
 
-
+    # latex support
+    texliveFull
+  
     # python dev
-    python3
-    # uv
-    # poetry
-    # jupyter-all
-    # python312Packages.jupyterlab
-    # virtualenv
-    # python312Packages.python-lsp-server
-    # pypy3
-    # pypy310
+    python3 pypy3
+    uv virtualenv
 
     # ocaml dev
     ocaml
@@ -78,49 +72,61 @@
     dune_3
     opam
 
+   
     # other dev
-    sqlite    
+    sqlite
+     
     # nix dev
     nil
 
     # json support
-    jq
-    vscode-langservers-extracted # html/css/json lsp
+    jq vscode-langservers-extracted
+    yq
     
-    # audio
-    pavucontrol
-        
     # desktop apps
     firefox
     kitty
-
-    # handwriten and digital notes
     obsidian
     inkscape
-    # xournalpp
-    
     xfce.thunar
     vscode-fhs
 
-    # desktop
+    # desktop environment
     waybar
     hyprlock
     hypridle
     hyprpaper
     # for other suckmore tools
     xwayland wlroots xdg-desktop-portal-wlr
+
+    # screen shots
+    slurp grim
+
+    # gnome DE
+    # gnome
     
-    light
 
     # cli tools
     yt-dlp-light
     ffmpeg
     transmission_4
+    light
   ];
 
+  # services.xserver.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = false;  # No login manager
+
+  # steam
+  # programs.steam = {
+    # enable = true;
+    # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    # localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  # };
+  
+
   fonts.packages = with pkgs; [
-    dejavu_fonts
-    
     fira-code
     fira-code-symbols
     fira-code-nerdfont
@@ -140,4 +146,3 @@
 
   system.stateVersion = "24.05";
 }
-
